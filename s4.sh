@@ -1,9 +1,10 @@
-
-cp -r ./home/d ./home/d/backup
-mapfile -t arr << "( diff -qr ./backup ./d )"
-#arr = (diff -qr /home/backup /home/d)
-for file in "${arr[@]}" ; 
-do
-cp "${file}" /backup
-done
+cp -r /home/d /home/backup
+#diff -qr ./backup/d ./d
+ls /home/backup/d>bp.txt
+ls /home/d>d.txt
+diff bp.txt d.txt >diff.txt
+while read file; do
+cp /home/backup/d/"${file}" home/d
+echo "${file}"
+done < diff.txt
 
